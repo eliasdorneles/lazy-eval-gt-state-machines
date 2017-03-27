@@ -1,6 +1,7 @@
 CODE, COMMENT, MAYBE_COMMENT, MAYBE_END_COMMENT = tuple(range(4))
 
 
+# TODO: make a diagram using a graphviz
 def strip_comments(code):
     out = ''
     state = CODE
@@ -25,6 +26,8 @@ def strip_comments(code):
         elif state == MAYBE_END_COMMENT:
             if c == '/':
                 state = CODE
+            elif c == '*':
+                state = MAYBE_END_COMMENT
             else:
                 state = COMMENT
         prev_c = c
@@ -34,7 +37,7 @@ code = """
 function add(a, b){
     /**
     * Function that adds two items
-    */
+    **/
     return a + b;
 }
 add(a, b); /* call add function */

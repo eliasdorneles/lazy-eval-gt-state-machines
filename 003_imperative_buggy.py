@@ -1,12 +1,4 @@
 def strip_comments(code):
-    def skip_until_end_comment(it):
-        while True:
-            c = next(it)
-            if c == '*':
-                c = next(it)
-                if c == '/':
-                    break
-
     out = ''
     it = iter(code)
     try:
@@ -15,7 +7,13 @@ def strip_comments(code):
             if c == '/':
                 n = next(it)
                 if n == '*':
-                    skip_until_end_comment(it)
+                    while True:
+                        c = next(it)
+                        # XXX: this is buggy, doesn't handle a closing **/
+                        if c == '*':
+                            c = next(it)
+                            if c == '/':
+                                break
                 else:
                     out += '/' + n
             else:

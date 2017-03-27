@@ -1,4 +1,12 @@
 def strip_comments(code):
+    def skip_until_end_comment(it):
+        while True:
+            c = next(it)
+            while c == '*':
+                c = next(it)
+                if c == '/':
+                    return
+
     out = ''
     it = iter(code)
     try:
@@ -7,12 +15,7 @@ def strip_comments(code):
             if c == '/':
                 n = next(it)
                 if n == '*':
-                    while True:
-                        c = next(it)
-                        if c == '*':
-                            c = next(it)
-                            if c == '/':
-                                break
+                    skip_until_end_comment(it)
                 else:
                     out += '/' + n
             else:
@@ -25,7 +28,7 @@ code = """
 function add(a, b){
     /**
     * Function that adds two items
-    */
+    **/
     return a + b;
 }
 add(a, b); /* call add function */

@@ -40,7 +40,7 @@ code = """
 function add(a, b){
     /**
     * Function that adds two items
-    */
+    **/
     return a + b;
 }
 add(a, b); /* call add function */

@@ -2,15 +2,16 @@ import re
 
 
 def strip_comments(code):
-    COMMENT_REGEX = '/[*]([^*]|[*][^/])*[*]/'
+    COMMENT_REGEX = '/[*][\s\S]+?[*]/'
     return re.sub(COMMENT_REGEX, '', code)
 
 
 code = """
 function add(a, b){
     /**
-    * Function that adds two items
-    */
+    ** Function that adds two items ***
+    **/
+
     return a + b;
 }
 add(a, b); /* call add function */
