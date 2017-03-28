@@ -1,6 +1,6 @@
 def coroutine(func):
-    def start(*args,**kwargs):
-        cr = func(*args,**kwargs)
+    def start(*args, **kwargs):
+        cr = func(*args, **kwargs)
         cr.next()
         return cr
     return start
@@ -15,15 +15,20 @@ def strip_comments(target):
             if n == '*':
                 while True:
                     c = yield
-                    if c == '*':
+                    break_outer = False
+                    while c == '*':
                         c = yield
                         if c == '/':
+                            break_outer = True
                             break
+                    if break_outer:
+                        break
             else:
                 target.send('/')
                 target.send(n)
         else:
             target.send(c)
+
 
 @coroutine
 def sink():
@@ -39,7 +44,7 @@ def sink():
 code = """
 function add(a, b){
     /**
-    * Function that adds two items
+    ** Function that adds two items
     **/
     return a + b;
 }
