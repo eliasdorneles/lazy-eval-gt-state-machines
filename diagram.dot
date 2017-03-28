@@ -1,0 +1,10 @@
+digraph fsm_strip_comments {
+    rankdir=TL;
+    CODE -> MAYBE_COMMENT [ label = "/" ];
+    MAYBE_COMMENT -> COMMENT [ label = "*" ];
+    MAYBE_COMMENT -> CODE [ label = "not *" ];
+    COMMENT -> MAYBE_END_COMMENT [ label = "*" ];
+    MAYBE_END_COMMENT -> COMMENT [ label = "not * nor /" ];
+    MAYBE_END_COMMENT -> MAYBE_END_COMMENT [ label = "*" ];
+    MAYBE_END_COMMENT -> CODE [ label = "/" ];
+}
