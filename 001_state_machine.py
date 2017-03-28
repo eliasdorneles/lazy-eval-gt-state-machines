@@ -1,7 +1,6 @@
 CODE, COMMENT, MAYBE_COMMENT, MAYBE_END_COMMENT = tuple(range(4))
 
 
-# TODO: make a diagram using a graphviz
 def strip_comments(code):
     out = ''
     state = CODE
